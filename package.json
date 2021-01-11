@@ -3,7 +3,8 @@
   "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
-  "description":"butterfly主题魔改友链",
+  "description": "butterfly主题魔改友链",
+  "author": "DreamyTZK",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "serve": "cross-env NODE_ENV=production webpack serve"
