@@ -58,11 +58,33 @@ const getBody = (body) => {
   let name = getInfo(body, 'name')
   let avatar = getInfo(body, 'avatar')
   let description = getInfo(body, 'descr')
-  return `<div class="flink-list-item" style="${getCustom(
-    body
-  )}"><a href="${url}" title="${name}" target="_blank"><img class="rauto" style="animation:${getImgCustom(
-    body
-  )}" data-lazy-src="${avatar}" onerror="this.onerror=null,this.src=&quot;https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/21/20200321213747.gif&quot;" alt="${name}" src="${avatar}"><span class="flink-item-name">${name}</span><span class="flink-item-desc" title="${description}">${description}</span></a></div>`
+  let userStyle = getInfo(body, 'card_style')
+  const style = {
+    // 第一种样式
+    item: `<div class="flink-list-item" style="${getCustom(
+      body
+    )}"><a href="${url}" title="${name}" target="_blank"><img class="rauto" style="animation:${getImgCustom(
+      body
+    )}" data-lazy-src="${avatar}" onerror="this.onerror=null,this.src=&quot;https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/21/20200321213747.gif&quot;" alt="${name}" src="${avatar}"><span class="flink-item-name">${name}</span><span class="flink-item-desc" title="${description}">${description}</span></a></div>`,
+    // 第二种样式
+    card: `<a href="${url}" target="_blank"
+    ><div class="wrapper cover">
+      <img
+        src="https://image.thum.io/get/width/1024/crop/768/${url}"
+        class="cover fadeIn"
+      />
+    </div>
+    <div class="info">
+    <img data-lazy-src="${avatar}" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/21/20200321213747.gif'" alt="${name}">
+      <span>${name}</span>
+    </div>
+    </a>`
+  }
+
+  return {
+    type: userStyle,
+    template: style[userStyle] ? style[userStyle] : style.item
+  }
 }
 const getLabelDescr = (_this, label) => {
   let desc = ''

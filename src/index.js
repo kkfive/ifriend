@@ -4,7 +4,7 @@ import { getLabels, getBody, getLabelDescr } from './utils.js'
 class Friend {
   // 初始化
   constructor(obj) {
-    const { owner, repo, direction_sort, sort_container, labelDescr } = obj
+    const { owner, repo, direction_sort, sort_container, labelDescr, el } = obj
     // 用户名
     this.owner = owner
     // 仓库
@@ -21,7 +21,7 @@ class Friend {
     // 每次加载的用户
     this.per_page = 100
     // 需要指定的容器可以是id或者class
-    this.el = '#friend1'
+    this.el = el
     // 存储容器
     this.text = []
     this.init()
@@ -55,8 +55,12 @@ class Friend {
   createContainer() {
     for (var i in this.sort_container) {
       $(`${this.el}`).append(
-        `<h2 id=${this.sort_container[i]}>${this.sort_container[i]}</h2><div class="flink-desc"><h4>${this.sort_container[i]}</h4></div><div class="flink-list">` +
-          `</div>`
+        `<h2 id=${this.sort_container[i]}>${
+          this.sort_container[i]
+        }</h2><div class="flink-desc">${getLabelDescr(
+          this,
+          this.sort_container[i]
+        )}</div><div class="flink-list-card"></div><div class="flink-list"></div>`
       )
     }
   }
@@ -68,20 +72,41 @@ class Friend {
     this.createContainer()
     for (let i in text) {
       if (text[i].labels) {
-        content = text[i].body
-        if ($('#' + text[i].labels).length) {
-          $(`#${text[i].labels}`).next().next().append(content)
+        const body = text[i].body
+        content = body.template
+        // card类型
+        if (body.type == 'card') {
+          if ($('#' + text[i].labels).length) {
+            $(`#${text[i].labels}`).next().next().append(content)
+          } else {
+            $(this.el).append(
+              `<h2 id=${text[i].labels}>${
+                text[i].labels
+              }</h2><div class="flink-desc">${getLabelDescr(
+                this,
+                text[i].labels
+              )}</div>` +
+                `<div class="flink-list-card">` +
+                content +
+                `</div>` +
+                `<div class="flink-list"></div>`
+            )
+          }
         } else {
-          $(this.el).append(
-            `<h2 id=${text[i].labels}>${
-              text[i].labels
-            }</h2><div class="flink-desc">${getLabelDescr(
-              this,
-              text[i].labels
-            )}</div><div class="flink-list">` +
-              content +
-              `</div>`
-          )
+          if ($('#' + text[i].labels).length) {
+            $(`#${text[i].labels}`).next().next().next().append(content)
+          } else {
+            $(this.el).append(
+              `<h2 id=${text[i].labels}>${
+                text[i].labels
+              }</h2><div class="flink-desc">${getLabelDescr(
+                this,
+                text[i].labels
+              )}</div><div class="flink-list">` +
+                content +
+                `</div>`
+            )
+          }
         }
       }
     }
