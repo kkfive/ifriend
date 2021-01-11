@@ -1,4 +1,5 @@
 import './style/index.less'
+import './style/built.css'
 import { getLabels, getBody, getLabelDescr } from './utils.js'
 
 class Friend {

@@ -22,6 +22,9 @@ const banner =
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+
+const OptiomizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -35,7 +38,16 @@ module.exports = {
     rules: [
       {
         test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'less-loader'
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader']
       },
       {
         test: /\.js$/,
@@ -44,7 +56,14 @@ module.exports = {
       }
     ]
   },
-  plugins: [new CleanWebpackPlugin(), new webpack.BannerPlugin(banner)],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new webpack.BannerPlugin(banner),
+    new MiniCssExtractPlugin({
+      filename: 'css/friend.css'
+    }),
+    new OptiomizeCssAssetsWebpackPlugin()
+  ],
   optimization: {
     minimize: true,
     minimizer: [
@@ -54,7 +73,13 @@ module.exports = {
           ecma: 5,
           toplevel: true,
           ie8: true,
-          safari10: true
+          safari10: true,
+          compress: {
+            drop_console: true
+          },
+          format: {
+            comments: false
+          }
         }
       })
     ]
