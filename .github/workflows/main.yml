@@ -40,7 +40,8 @@ jobs:
           export TZ='Asia/Shanghai'
           npm run build
       - name: 6. 发布包
+        run: |
           npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
           npm publish
         env:
-          NPM_TOKEN: ${{secrets.npm_token}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
