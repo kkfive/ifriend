@@ -8,12 +8,37 @@ on:
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      # check it to your workflow can access it
+      # from: https://github.com/actions/checkout
+      - name: 1. 检查master分支
+        uses: actions/checkout@master
+
+      # from: https://github.com/actions/setup-node
+      - name: 2. 设置Node.js
+        uses: actions/setup-node@master
         with:
-          node-version: 10
-          registry-url: https://registry.npmjs.org/
-      - run: npm install && npm run build && npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          node-version: ${{ matrix.node-version }}
+
+      - name: 3. 缓存
+        uses: actions/cache@v2
+        id: cache-dependencies
+        with:
+          path: node_modules
+          key: ${{runner.OS}}-${{hashFiles('**/package-lock.json')}}
+
+      - name: 4. 安装插件
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        run: |
+          export TZ='Asia/Shanghai'
+          npm install
+      - name: 5. 生成并发布包
+        run: |
+          export TZ='Asia/Shanghai'
+          npm run build 
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
