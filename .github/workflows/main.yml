@@ -42,5 +42,5 @@ jobs:
       - name: 6. 发布包
           npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
           npm publish
-          env:
-            NPM_TOKEN: ${{secrets.npm_token}}
+        env:
+          NPM_TOKEN: ${{secrets.npm_token}}
