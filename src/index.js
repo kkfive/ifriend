@@ -1,7 +1,7 @@
 import './style/index.less'
-import './style/built.css'
+import './style/friend.css'
 import { getLabels, getBody, getLabelDescr } from './utils.js'
-
+import { version } from '../package.json'
 class Friend {
   // 初始化
   constructor(obj) {
@@ -16,7 +16,6 @@ class Friend {
     this.sort_container = sort_container
     // 标签描述
     this.labelDescr = labelDescr
-
     // 当前页面
     this.page = 1
     // 每次加载的用户
@@ -25,15 +24,16 @@ class Friend {
     this.el = el
     // 存储容器
     this.text = []
+
     this.init()
   }
   // 初始化
   init() {
     // 输出信息
     console.log(
-      "\n %c XiaoKang's FriendTools" +
-        this.version +
-        ' %c https://docs.tzki.cn/Friend \n',
+      '\n %c butterfly-friend' +
+        version +
+        ' %c https://www.yuque.com/kdoc/bf/friend \n',
       'color: #fff; background: #4285f4; padding:5px 0;',
       'background: #66CCFF; padding:5px 0;'
     )
@@ -116,7 +116,7 @@ class Friend {
   // 获取朋友
   getFriends(_this) {
     return $.ajax({
-      url: `https://gitee.com/api/v5/repos/${this.owner}/${this.repo}/issues?state=open&sort=created&direction=${this.direction_sort}&page=${this.page}&per_page=${this.per_page}&access_token=7ca3f6d9cbb97f18f85ed56c8401780a`,
+      url: `https://gitee.com/api/v5/repos/${this.owner}/${this.repo}/issues?state=open&sort=created&direction=${this.direction_sort}&page=${this.page}&per_page=${this.per_page}`,
       type: 'get',
       success: function (date, textStatus, request) {
         _this.text = []

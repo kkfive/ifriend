@@ -1,10 +1,24 @@
 {
   "name": "butterfly-friend",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "license": "MIT",
   "description": "butterfly主题魔改友链",
-  "author": "DreamyTZK",
+  "author": {
+    "name": "Dreamy.TZK",
+    "email": "dreamytzk@outlook.com",
+    "url": "https://xiaokang.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dreamy-TZK/butterfly-friend"
+  },
+  "keywords": [
+    "hexo",
+    "butterfly",
+    "friend",
+    "魔改"
+  ],
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "serve": "cross-env NODE_ENV=production webpack serve"
