@@ -1,6 +1,6 @@
 {
   "name": "butterfly-friend",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/friend.min.js",
   "license": "MIT",
   "description": "butterfly主题魔改友链",

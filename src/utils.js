@@ -75,7 +75,7 @@ const getBody = (body) => {
       />
     </div>
     <div class="info">
-    <img data-lazy-src="${avatar}" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/21/20200321213747.gif'" alt="${name}">
+    <img data-lazy-src="${avatar}" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/21/20200321213747.gif'" alt="${name}" src="${avatar}">
       <span>${name}</span>
     </div>
     </a>`
