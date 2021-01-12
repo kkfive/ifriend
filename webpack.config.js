@@ -28,7 +28,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     // 输出的文件名
-    filename: 'frinend.min.js',
+    filename: 'friend.min.js',
     // 输出的路径
     path: resolve(__dirname, 'dist')
   },
@@ -59,7 +59,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new webpack.BannerPlugin(banner),
     new MiniCssExtractPlugin({
-      filename: 'css/friend.css'
+      filename: 'css/friend.min.css'
     }),
     new OptiomizeCssAssetsWebpackPlugin()
   ],
