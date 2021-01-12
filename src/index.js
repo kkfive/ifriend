@@ -1,7 +1,7 @@
 import './style/index.less'
 import './style/friend.css'
 import { getLabels, getBody, getLabelDescr } from './utils.js'
-import { version } from '../package.json'
+
 class Friend {
   // 初始化
   constructor(obj) {
@@ -31,9 +31,7 @@ class Friend {
   init() {
     // 输出信息
     console.log(
-      '\n %c butterfly-friend' +
-        version +
-        ' %c https://www.yuque.com/kdoc/bf/friend \n',
+      '\n %c butterfly-friend %c https://www.yuque.com/kdoc/bf/friend \n',
       'color: #fff; background: #4285f4; padding:5px 0;',
       'background: #66CCFF; padding:5px 0;'
     )

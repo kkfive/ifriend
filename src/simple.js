@@ -1,4 +1,14 @@
-const obj = {
+if (typeof Friend == 'undefined') {
+  location.href = '/friends'
+}
+console.log(
+  '\n %c butterfly-friend' +
+    version +
+    ' %c https://www.yuque.com/kdoc/bf/friend \n',
+  'color: #fff; background: #4285f4; padding:5px 0;',
+  'background: #66CCFF; padding:5px 0;'
+)
+var obj = {
   el: '#friend1',
   owner: 'antmoe',
   repo: 'friend',

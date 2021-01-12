@@ -53,12 +53,27 @@ const getLabels = (labels) => {
     return labels[0].name
   }
 }
+// 处理网站截图
+const getScreenshot = (body) => {
+  // 获取屏幕截图
+  let screenshot = getInfo(body, 'screenshot')
+  // 获取url
+  let url = getInfo(body, 'link')
+  if (screenshot.indexOf('http') != -1) {
+    // 用户输入了自定义的截图
+    return screenshot
+  } else {
+    // 用户没有输入自定义的截图
+    return `https://image.thum.io/get/width/1024/crop/768/${url}`
+  }
+}
 const getBody = (body) => {
   let url = getInfo(body, 'link')
   let name = getInfo(body, 'name')
   let avatar = getInfo(body, 'avatar')
   let description = getInfo(body, 'descr')
   let userStyle = getInfo(body, 'card_style')
+
   const style = {
     // 第一种样式
     item: `<div class="flink-list-item" style="${getCustom(
@@ -70,7 +85,7 @@ const getBody = (body) => {
     card: `<a href="${url}" target="_blank"
     ><div class="wrapper cover">
       <img
-        src="https://image.thum.io/get/width/1024/crop/768/${url}"
+        src="${getScreenshot(body)}"
         class="cover fadeIn"
       />
     </div>
