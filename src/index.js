@@ -46,28 +46,19 @@ class Friend {
   }
   // 展示loading
   showLoading() {
-    $(`${this.el}`).html(
-      `<div class="loader"><svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle class="load one" cx="60" cy="60" r="40"></circle><circle class="load two" cx="60" cy="60" r="40"></circle><circle class="load three" cx="60" cy="60" r="40"></circle><g><circle class="point one" cx="45" cy="70" r="5"></circle><circle class="point two" cx="60" cy="70" r="5"></circle><circle class="point three" cx="75" cy="70" r="5"></circle></g></svg></div>`
-    )
+    document.querySelector(`${this.el}`).innerHTML = `<div class="loader"><svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle class="load one" cx="60" cy="60" r="40"></circle><circle class="load two" cx="60" cy="60" r="40"></circle><circle class="load three" cx="60" cy="60" r="40"></circle><g><circle class="point one" cx="45" cy="70" r="5"></circle><circle class="point two" cx="60" cy="70" r="5"></circle><circle class="point three" cx="75" cy="70" r="5"></circle></g></svg></div>`
   }
   // 创建需要置顶的标签容器
   createContainer() {
     for (var i in this.sort_container) {
-      $(`${this.el}`).append(
-        `<h2 id=${this.sort_container[i]}>${
-          this.sort_container[i]
-        }</h2><div class="flink-desc">${getLabelDescr(
-          this,
-          this.sort_container[i]
-        )}</div><div class="flink-list-card"></div><div class="flink-list"></div>`
-      )
+      document.querySelector(`${this.el}`).insertAdjacentHTML('beforeend', `<h2 id=${this.sort_container[i]}>${this.sort_container[i]}</h2><div class="flink-desc">${getLabelDescr(this,this.sort_container[i])}</div><div class="flink-list-card"></div><div class="flink-list"></div>`)
     }
   }
   // 创建朋友
   createFriend() {
     let content = ''
     var text = this.text
-    $('.loader').hide()
+    document.querySelector('.loader').style.display = 'none'
     this.createContainer()
     for (let i in text) {
       if (text[i].labels) {
@@ -75,36 +66,32 @@ class Friend {
         content = body.template
         // card类型
         if (body.type == 'card') {
-          if ($('#' + text[i].labels).length) {
-            $(`#${text[i].labels}`).next().next().append(content)
+          if (document.querySelectorAll('#' + text[i].labels).length) {
+            document.querySelector(`#${text[i].labels}`).nextElementSibling.nextElementSibling.insertAdjacentHTML('beforeend', content)
           } else {
-            $(this.el).append(
-              `<h2 id=${text[i].labels}>${
-                text[i].labels
-              }</h2><div class="flink-desc">${getLabelDescr(
-                this,
-                text[i].labels
-              )}</div>` +
-                `<div class="flink-list-card">` +
-                content +
-                `</div>` +
-                `<div class="flink-list"></div>`
-            )
+            document.querySelector(this.el).insertAdjacentHTML('beforeend', `<h2 id=${text[i].labels}>${
+              text[i].labels
+            }</h2><div class="flink-desc">${getLabelDescr(
+              this,
+              text[i].labels
+            )}</div>` +
+              `<div class="flink-list-card">` +
+              content +
+              `</div>` +
+              `<div class="flink-list"></div>`)
           }
         } else {
-          if ($('#' + text[i].labels).length) {
-            $(`#${text[i].labels}`).next().next().next().append(content)
+          if (document.querySelectorAll('#' + text[i].labels).length) {
+            document.querySelector(`#${text[i].labels}`).nextElementSibling.nextElementSibling.nextElementSibling.insertAdjacentHTML('beforeend', content)
           } else {
-            $(this.el).append(
-              `<h2 id=${text[i].labels}>${
-                text[i].labels
-              }</h2><div class="flink-desc">${getLabelDescr(
-                this,
-                text[i].labels
-              )}</div><div class="flink-list">` +
-                content +
-                `</div>`
-            )
+            document.querySelector(this.el).insertAdjacentHTML('beforeend',`<h2 id=${text[i].labels}>${
+              text[i].labels
+            }</h2><div class="flink-desc">${getLabelDescr(
+              this,
+              text[i].labels
+            )}</div><div class="flink-list">` +
+              content +
+              `</div>`)
           }
         }
       }
@@ -113,21 +100,19 @@ class Friend {
 
   // 获取朋友
   getFriends(_this) {
-    return $.ajax({
-      url: `https://gitee.com/api/v5/repos/${this.owner}/${this.repo}/issues?state=open&sort=created&direction=${this.direction_sort}&page=${this.page}&per_page=${this.per_page}`,
-      type: 'get',
-      success: function (date, textStatus, request) {
-        _this.text = []
-        if (date) {
-          for (let i in date) {
-            var temp = {}
-            temp.body = getBody(date[i]['body'])
-            temp.labels = getLabels(date[i]['labels'])
-            _this.text.push(temp)
-          }
-        } else {
-          return
+    return fetch(`https://gitee.com/api/v5/repos/${this.owner}/${this.repo}/issues?state=open&sort=created&direction=${this.direction_sort}&page=${this.page}&per_page=${this.per_page}`)
+    .then(response => response.json())
+    .then(data => {
+      _this.text = []
+      if (data) {
+        for (let i in data) {
+          var temp = {}
+          temp.body = getBody(data[i]['body'])
+          temp.labels = getLabels(data[i]['labels'])
+          _this.text.push(temp)
         }
+      } else {
+        return
       }
     })
   }
