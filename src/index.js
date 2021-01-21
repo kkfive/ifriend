@@ -1,4 +1,4 @@
-import './style/index.less'
+// import './style/index.less'
 import './style/friend.css'
 import { getLabels, getBody, getLabelDescr } from './utils.js'
 
@@ -46,12 +46,24 @@ class Friend {
   }
   // 展示loading
   showLoading() {
-    document.querySelector(`${this.el}`).innerHTML = `<div class="loader"><svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle class="load one" cx="60" cy="60" r="40"></circle><circle class="load two" cx="60" cy="60" r="40"></circle><circle class="load three" cx="60" cy="60" r="40"></circle><g><circle class="point one" cx="45" cy="70" r="5"></circle><circle class="point two" cx="60" cy="70" r="5"></circle><circle class="point three" cx="75" cy="70" r="5"></circle></g></svg></div>`
+    document.querySelector(
+      `${this.el}`
+    ).innerHTML = `<div class="loader"><svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle class="load one" cx="60" cy="60" r="40"></circle><circle class="load two" cx="60" cy="60" r="40"></circle><circle class="load three" cx="60" cy="60" r="40"></circle><g><circle class="point one" cx="45" cy="70" r="5"></circle><circle class="point two" cx="60" cy="70" r="5"></circle><circle class="point three" cx="75" cy="70" r="5"></circle></g></svg></div>`
   }
   // 创建需要置顶的标签容器
   createContainer() {
     for (var i in this.sort_container) {
-      document.querySelector(`${this.el}`).insertAdjacentHTML('beforeend', `<h2 id=${this.sort_container[i]}>${this.sort_container[i]}</h2><div class="flink-desc">${getLabelDescr(this,this.sort_container[i])}</div><div class="flink-list-card"></div><div class="flink-list"></div>`)
+      document
+        .querySelector(`${this.el}`)
+        .insertAdjacentHTML(
+          'beforeend',
+          `<h2 id=${this.sort_container[i]}>${
+            this.sort_container[i]
+          }</h2><div class="flink-desc">${getLabelDescr(
+            this,
+            this.sort_container[i]
+          )}</div><div class="flink-list-card"></div><div class="flink-list"></div>`
+        )
     }
   }
   // 创建朋友
@@ -67,31 +79,51 @@ class Friend {
         // card类型
         if (body.type == 'card') {
           if (document.querySelectorAll('#' + text[i].labels).length) {
-            document.querySelector(`#${text[i].labels}`).nextElementSibling.nextElementSibling.insertAdjacentHTML('beforeend', content)
+            document
+              .querySelector(`#${text[i].labels}`)
+              .nextElementSibling.nextElementSibling.insertAdjacentHTML(
+                'beforeend',
+                content
+              )
           } else {
-            document.querySelector(this.el).insertAdjacentHTML('beforeend', `<h2 id=${text[i].labels}>${
-              text[i].labels
-            }</h2><div class="flink-desc">${getLabelDescr(
-              this,
-              text[i].labels
-            )}</div>` +
-              `<div class="flink-list-card">` +
-              content +
-              `</div>` +
-              `<div class="flink-list"></div>`)
+            document
+              .querySelector(this.el)
+              .insertAdjacentHTML(
+                'beforeend',
+                `<h2 id=${text[i].labels}>${
+                  text[i].labels
+                }</h2><div class="flink-desc">${getLabelDescr(
+                  this,
+                  text[i].labels
+                )}</div>` +
+                  `<div class="flink-list-card">` +
+                  content +
+                  `</div>` +
+                  `<div class="flink-list"></div>`
+              )
           }
         } else {
           if (document.querySelectorAll('#' + text[i].labels).length) {
-            document.querySelector(`#${text[i].labels}`).nextElementSibling.nextElementSibling.nextElementSibling.insertAdjacentHTML('beforeend', content)
+            document
+              .querySelector(`#${text[i].labels}`)
+              .nextElementSibling.nextElementSibling.nextElementSibling.insertAdjacentHTML(
+                'beforeend',
+                content
+              )
           } else {
-            document.querySelector(this.el).insertAdjacentHTML('beforeend',`<h2 id=${text[i].labels}>${
-              text[i].labels
-            }</h2><div class="flink-desc">${getLabelDescr(
-              this,
-              text[i].labels
-            )}</div><div class="flink-list">` +
-              content +
-              `</div>`)
+            document
+              .querySelector(this.el)
+              .insertAdjacentHTML(
+                'beforeend',
+                `<h2 id=${text[i].labels}>${
+                  text[i].labels
+                }</h2><div class="flink-desc">${getLabelDescr(
+                  this,
+                  text[i].labels
+                )}</div><div class="flink-list">` +
+                  content +
+                  `</div>`
+              )
           }
         }
       }
@@ -100,21 +132,23 @@ class Friend {
 
   // 获取朋友
   getFriends(_this) {
-    return fetch(`https://gitee.com/api/v5/repos/${this.owner}/${this.repo}/issues?state=open&sort=created&direction=${this.direction_sort}&page=${this.page}&per_page=${this.per_page}`)
-    .then(response => response.json())
-    .then(data => {
-      _this.text = []
-      if (data) {
-        for (let i in data) {
-          var temp = {}
-          temp.body = getBody(data[i]['body'])
-          temp.labels = getLabels(data[i]['labels'])
-          _this.text.push(temp)
+    return fetch(
+      `https://gitee.com/api/v5/repos/${this.owner}/${this.repo}/issues?state=open&sort=created&direction=${this.direction_sort}&page=${this.page}&per_page=${this.per_page}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        _this.text = []
+        if (data) {
+          for (let i in data) {
+            var temp = {}
+            temp.body = getBody(data[i]['body'])
+            temp.labels = getLabels(data[i]['labels'])
+            _this.text.push(temp)
+          }
+        } else {
+          return
         }
-      } else {
-        return
-      }
-    })
+      })
   }
 }
 
