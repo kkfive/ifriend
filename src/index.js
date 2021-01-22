@@ -5,7 +5,15 @@ import { getLabels, getBody, getLabelDescr } from './utils.js'
 class Friend {
   // 初始化
   constructor(obj) {
-    const { owner, repo, direction_sort, sort_container, labelDescr, el } = obj
+    const {
+      owner,
+      repo,
+      direction_sort,
+      sort_container,
+      labelDescr,
+      el,
+      fail_img
+    } = obj
     // 用户名
     this.owner = owner
     // 仓库
@@ -24,7 +32,10 @@ class Friend {
     this.el = el
     // 存储容器
     this.text = []
-
+    // 友链头像加载失败时的图片
+    this.fail_img =
+      fail_img ||
+      'https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/21/20200321213747.gif'
     this.init()
   }
   // 初始化
@@ -80,14 +91,14 @@ class Friend {
         content = body.template
         // card类型
         if (body.type == 'card') {
-          if (document.querySelectorAll('#' + text[i].labels).length) {
-            document
-              .querySelector(`#${text[i].labels}`)
-              .nextElementSibling.nextElementSibling.insertAdjacentHTML(
-                'beforeend',
-                content
-              )
+          // 如果已经创建过标签
+          if (elementList.length) {
+            element.nextElementSibling.nextElementSibling.insertAdjacentHTML(
+              'beforeend',
+              content
+            )
           } else {
+            // 没有创建过标签
             document
               .querySelector(this.el)
               .insertAdjacentHTML(
@@ -104,27 +115,30 @@ class Friend {
                   `<div class="flink-list"></div>`
               )
           }
-        } else {
-          if (document.querySelectorAll('#' + text[i].labels).length) {
+        }
+        // item类型
+        else {
+          // 已经创建过当前标签的dom
+          if (elementList.length) {
+            // 是否包含card类型的卡片
             if (
-              document.querySelector(`#${text[i].labels}`).nextElementSibling
-                .nextElementSibling.nextElementSibling
+              element.nextElementSibling.nextElementSibling.nextElementSibling
             ) {
-              document
-                .querySelector(`#${text[i].labels}`)
-                .nextElementSibling.nextElementSibling.nextElementSibling.insertAdjacentHTML(
-                  'beforeend',
-                  content
-                )
+              // 包含card类型的友链
+              element.nextElementSibling.nextElementSibling.nextElementSibling.insertAdjacentHTML(
+                'beforeend',
+                content
+              )
             } else {
-              document
-                .querySelector(`#${text[i].labels}`)
-                .nextElementSibling.nextElementSibling.insertAdjacentHTML(
-                  'beforeend',
-                  content
-                )
+              // 不包含card类型的卡片
+              element.nextElementSibling.nextElementSibling.insertAdjacentHTML(
+                'beforeend',
+                content
+              )
             }
-          } else {
+          }
+          // 没有创建过当前标签的dom
+          else {
             document
               .querySelector(this.el)
               .insertAdjacentHTML(
@@ -155,7 +169,7 @@ class Friend {
         if (data) {
           for (let i in data) {
             var temp = {}
-            temp.body = getBody(data[i]['body'])
+            temp.body = getBody(data[i]['body'], _this.fail_img)
             temp.labels = getLabels(data[i]['labels'])
             _this.text.push(temp)
           }

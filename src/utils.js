@@ -67,7 +67,7 @@ const getScreenshot = (body) => {
     return `https://image.thum.io/get/width/1024/crop/768/${url}`
   }
 }
-const getBody = (body) => {
+const getBody = (body, fail_img) => {
   let url = getInfo(body, 'link')
   let name = getInfo(body, 'name')
   let avatar = getInfo(body, 'avatar')
@@ -80,7 +80,7 @@ const getBody = (body) => {
       body
     )}"><a href="${url}" title="${name}" target="_blank"><img class="rauto" style="animation:${getImgCustom(
       body
-    )}" data-lazy-src="${avatar}" onerror="this.onerror=null,this.src=&quot;https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/21/20200321213747.gif&quot;" alt="${name}" src="${avatar}"><span class="flink-item-name">${name}</span><span class="flink-item-desc" title="${description}">${description}</span></a></div>`,
+    )}" data-lazy-src="${avatar}" onerror="this.onerror=null,this.src='${fail_img}'" alt="${name}" src="${avatar}"><span class="flink-item-name">${name}</span><span class="flink-item-desc" title="${description}">${description}</span></a></div>`,
     // 第二种样式
     card: `<a href="${url}" target="_blank"
     ><div class="wrapper cover">
@@ -90,7 +90,7 @@ const getBody = (body) => {
       />
     </div>
     <div class="info">
-    <img data-lazy-src="${avatar}" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/21/20200321213747.gif'" alt="${name}" src="${avatar}">
+    <img data-lazy-src="${avatar}" onerror="this.onerror=null;this.src='${fail_img}'" alt="${name}" src="${avatar}">
       <span>${name}</span>
     </div>
     </a>`

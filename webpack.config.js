@@ -94,6 +94,6 @@ module.exports = {
     port: 3000,
     // 自动打开浏览器
     open: false
-  },
-  devtool: 'eval-source-map'
+  }
+  // devtool: 'eval-source-map'
 }
