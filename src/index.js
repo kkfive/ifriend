@@ -75,6 +75,8 @@ class Friend {
     for (let i in text) {
       if (text[i].labels) {
         const body = text[i].body
+        const element = document.querySelector(`#${text[i].labels}`)
+        const elementList = document.querySelectorAll('#' + text[i].labels)
         content = body.template
         // card类型
         if (body.type == 'card') {
@@ -104,12 +106,24 @@ class Friend {
           }
         } else {
           if (document.querySelectorAll('#' + text[i].labels).length) {
-            document
-              .querySelector(`#${text[i].labels}`)
-              .nextElementSibling.nextElementSibling.nextElementSibling.insertAdjacentHTML(
-                'beforeend',
-                content
-              )
+            if (
+              document.querySelector(`#${text[i].labels}`).nextElementSibling
+                .nextElementSibling.nextElementSibling
+            ) {
+              document
+                .querySelector(`#${text[i].labels}`)
+                .nextElementSibling.nextElementSibling.nextElementSibling.insertAdjacentHTML(
+                  'beforeend',
+                  content
+                )
+            } else {
+              document
+                .querySelector(`#${text[i].labels}`)
+                .nextElementSibling.nextElementSibling.insertAdjacentHTML(
+                  'beforeend',
+                  content
+                )
+            }
           } else {
             document
               .querySelector(this.el)

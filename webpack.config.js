@@ -74,7 +74,7 @@ module.exports = {
           ie8: true,
           safari10: true,
           compress: {
-            drop_console: true
+            drop_console: false
           },
           format: {
             comments: false
@@ -94,5 +94,6 @@ module.exports = {
     port: 3000,
     // 自动打开浏览器
     open: false
-  }
+  },
+  devtool: 'eval-source-map'
 }
