@@ -26,7 +26,9 @@ const getCustom = (body) => {
     'border-style',
     'animation',
     'background',
-    '--primary-rotate'
+    '--primary-rotate',
+    '--namecolor',
+    '--namecolorHover'
   ]
   let style = ''
   for (var i in cssStyle) {

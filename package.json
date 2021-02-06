@@ -1,6 +1,6 @@
 {
   "name": "butterfly-friend",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "main": "dist/friend.min.js",
   "license": "MIT",
   "description": "butterfly主题魔改友链",
@@ -20,7 +20,7 @@
     "魔改"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=development webpack",
     "serve": "cross-env NODE_ENV=production webpack serve"
   },
   "dependencies": {},
