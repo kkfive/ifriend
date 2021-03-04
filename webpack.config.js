@@ -37,15 +37,7 @@ module.exports = {
     rules: [
       {
         test: /\.less$/,
-        use: [
-          process.env.NODE_ENV === 'developmtnt'
-            ? 'style-loader'
-            : MiniCssExtractPlugin.loader,
-
-          'css-loader',
-          'postcss-loader',
-          'less-loader'
-        ]
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']
       },
       {
         test: /\.css$/,

@@ -32,7 +32,7 @@ const getCustom = (body) => {
   ]
   let style = ''
   for (var i in cssStyle) {
-    var temp = getInfo(body, cssStyle[i])
+    var temp = body[cssStyle[i]]
     if (temp !== '你写的好像不对哦！') {
       style += `${cssStyle[i]}:${temp};`
     }
@@ -43,7 +43,7 @@ const getImgCustom = (body) => {
   const cssStyle = ['img_animation']
   let style = ''
   for (var i in cssStyle) {
-    var temp = getInfo(body, cssStyle[i])
+    var temp = body[cssStyle[i]]
     if (temp !== '你写的好像不对哦！') {
       style += `${temp};`
     }
@@ -56,26 +56,25 @@ const getLabels = (labels) => {
   }
 }
 // 处理网站截图
-const getScreenshot = (body) => {
-  // 获取屏幕截图
-  let screenshot = getInfo(body, 'screenshot')
-  // 获取url
-  let url = getInfo(body, 'link')
-  if (screenshot.indexOf('http') != -1) {
+const getScreenshot = (screenshot, link) => {
+  if (screenshot) {
     // 用户输入了自定义的截图
     return screenshot
   } else {
     // 用户没有输入自定义的截图
-    return `https://image.thum.io/get/width/1024/crop/768/${url}`
+    return `https://image.thum.io/get/width/1024/crop/768/${link}`
   }
 }
 const getBody = (body, fail_img) => {
-  let url = getInfo(body, 'link')
-  let name = getInfo(body, 'name')
-  let avatar = getInfo(body, 'avatar')
-  let description = getInfo(body, 'descr')
-  let userStyle = getInfo(body, 'card_style')
-
+  const {
+    link: url,
+    name,
+    link,
+    screenshot,
+    avatar,
+    descr: description,
+    card_style: userStyle
+  } = body
   const style = {
     // 第一种样式
     item: `<div class="flink-list-item" style="${getCustom(
@@ -87,7 +86,7 @@ const getBody = (body, fail_img) => {
     card: `<a href="${url}" target="_blank"
     ><div class="wrapper cover">
       <img
-        src="${getScreenshot(body)}"
+        src="${getScreenshot(screenshot, link)}"
         class="cover fadeIn"
       />
     </div>
@@ -110,4 +109,4 @@ const getLabelDescr = (_this, label) => {
   }
   return desc
 }
-export { getInfo, getCustom, getImgCustom, getLabels, getBody, getLabelDescr }
+export { getCustom, getImgCustom, getLabels, getBody, getLabelDescr }

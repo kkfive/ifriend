@@ -1,34 +1,17 @@
-// import './style/index.less'
-import './style/friend.min.css'
+import './style/index.less'
 import { getLabels, getBody, getLabelDescr } from './utils.js'
 
 class Friend {
   // 初始化
   constructor(obj) {
-    const {
-      owner,
-      repo,
-      direction_sort,
-      sort_container,
-      labelDescr,
-      el,
-      fail_img
-    } = obj
-    // 用户名
-    this.owner = owner
-    // 仓库
-    this.repo = repo
-    // 排序规则 desc or asc
-    this.direction_sort = direction_sort
+    const { url, sort_container, labelDescr, el, fail_img, loading_img } = obj
+    // URL
+    this.url = url
     // 根据标签排序
     this.sort_container = sort_container
     // 标签描述
     this.labelDescr = labelDescr
-    // 当前页面
-    this.page = 1
-    // 每次加载的用户
-    this.per_page = 100
-    // 需要指定的容器可以是id或者class
+
     this.el = el
     // 存储容器
     this.text = []
@@ -36,6 +19,8 @@ class Friend {
     this.fail_img =
       fail_img ||
       'https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/21/20200321213747.gif'
+    this.loading_img =
+      loading_img || 'https://7.dusays.com/2021/03/04/070e14372aa11.gif'
     this.init()
   }
   // 初始化
@@ -59,7 +44,7 @@ class Friend {
   showLoading() {
     document.querySelector(
       `${this.el}`
-    ).innerHTML = `<div class="loader"><svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle class="load one" cx="60" cy="60" r="40"></circle><circle class="load two" cx="60" cy="60" r="40"></circle><circle class="load three" cx="60" cy="60" r="40"></circle><g><circle class="point one" cx="45" cy="70" r="5"></circle><circle class="point two" cx="60" cy="70" r="5"></circle><circle class="point three" cx="75" cy="70" r="5"></circle></g></svg></div>`
+    ).innerHTML = `<div class="loader"><img src='${this.loading_img}'></div>`
   }
   // 创建需要置顶的标签容器
   createContainer() {
@@ -160,18 +145,26 @@ class Friend {
 
   // 获取朋友
   getFriends(_this) {
-    return fetch(
-      `https://gitee.com/api/v5/repos/${this.owner}/${this.repo}/issues?state=open&sort=created&direction=${this.direction_sort}&page=${this.page}&per_page=${this.per_page}`
-    )
+    return fetch(_this.url)
       .then((response) => response.json())
       .then((data) => {
         _this.text = []
         if (data) {
-          for (let i in data) {
-            var temp = {}
-            temp.body = getBody(data[i]['body'], _this.fail_img)
-            temp.labels = getLabels(data[i]['labels'])
-            _this.text.push(temp)
+          for (let i in data.gitee) {
+            if (data.gitee[i].state == 'open') {
+              var temp = {}
+              temp.body = getBody(data.gitee[i]['body'], _this.fail_img)
+              temp.labels = getLabels(data.gitee[i]['label'])
+              _this.text.push(temp)
+            }
+          }
+          for (let i in data.github) {
+            if (data.github[i].state == 'open') {
+              var temp = {}
+              temp.body = getBody(data.github[i]['body'], _this.fail_img)
+              temp.labels = getLabels(data.github[i]['label'])
+              _this.text.push(temp)
+            }
           }
         } else {
           return
