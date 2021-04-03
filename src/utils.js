@@ -79,7 +79,7 @@ const getBody = (body, fail_img) => {
     // 第一种样式
     item: `<div class="flink-list-item" style="${getCustom(
       body
-    )}"><a href="${url}" title="${name}" target="_blank"><img class="rauto" style="animation:${getImgCustom(
+    )}"><a href="${url}" title="${name}" target="_blank"><img class="rauto loaded" style="animation:${getImgCustom(
       body
     )}" data-lazy-src="${avatar}" onerror="this.onerror=null,this.src='${fail_img}'" alt="${name}" src="${avatar}"><span class="flink-item-name">${name}</span><span class="flink-item-desc" title="${description}">${description}</span></a></div>`,
     // 第二种样式
@@ -91,7 +91,7 @@ const getBody = (body, fail_img) => {
       />
     </div>
     <div class="info">
-    <img data-lazy-src="${avatar}" onerror="this.onerror=null;this.src='${fail_img}'" alt="${name}" src="${avatar}">
+    <img class='loaded' data-lazy-src="${avatar}" onerror="this.onerror=null;this.src='${fail_img}'" alt="${name}" src="${avatar}">
       <span>${name}</span>
     </div>
     </a>`
