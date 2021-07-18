@@ -1,13 +1,4 @@
-## 关于此库
-此库为[hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly)友链魔改库。
+## 说明
 
-## 样式展示
-- [小康博客](https://www.antmoe.com/friends)
-
-## 使用说明
-参考：[butterfly-friend食用文档](https://www.yuque.com/kdoc/bf/friend)
-
-## 写在最后
-如果你觉得好用，请为此仓库点个star哦！
-如果你想请作者喝杯咖啡可以[点击这里](https://pay.xiaokang.me/)哦！
-**此项目需要配合[friend-spider](https://github.com/DreamyTZK/friend-spider)项目进行配合使用
+新版的 butterfly-friend 基于 vite2+vue3 进行重构，因此不在支持 ie11 以及一些旧版本的浏览器。
+不过相信既然能使用 hexo 的小伙伴一定也不是低版本浏览器吧。
