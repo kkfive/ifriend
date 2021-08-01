@@ -8,6 +8,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, 'src/main.ts'),
       name: 'xkFriend'
     },
+    cssCodeSplit: false,
     target: 'modules'
   },
   plugins: [vue()]
