@@ -1,20 +1,19 @@
 <template>
-  <div class="card-friend">
+  <div class="card-friend" @click="jump">
     <div class="wrapper cover">
-      <img src="https://7.dusays.com/2021/01/12/42c99956eac68.png" />
+      <img :src="friend.body.screenshot" />
     </div>
     <div class="info">
-      <img src="https://www.lete114.top/img/avatar.png" />
-      <span>Lete乐特</span>
+      <img v-lazy="friend.body.avatar" />
+      <span>{{ friend.body.name }}</span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import type { friendItem } from "../../types/friend";
-import { defineComponent, onMounted, watch } from "vue";
+import { defineComponent } from 'vue'
 export default defineComponent({
-  name: "friend-template-card",
+  name: 'friend-template-card',
   props: {
     friend: {
       type: Object,
@@ -23,9 +22,14 @@ export default defineComponent({
     },
   },
   setup: function (props, context) {
-    onMounted(() => {});
+    // console.log(props.friend)
+    const jump = () => {
+      // console.log(props.friend.body.link)
+      window.open(props.friend.body.link)
+    }
+    return { jump }
   },
-});
+})
 </script>
 
 <style lang='scss' scoped>
@@ -49,7 +53,7 @@ export default defineComponent({
       left: 0;
       width: 100%;
       transform: scale(1);
-      transition: transform 0.8s;
+      transition: transform 0.8s !important;
     }
   }
   &:hover .info {
@@ -71,7 +75,7 @@ export default defineComponent({
     overflow: hidden;
     border-radius: 3px;
     background-color: rgba(255, 255, 255, 0.7);
-    transition: transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
+    transition: transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0s !important;
     img {
       position: relative;
       top: 22px;
@@ -82,7 +86,7 @@ export default defineComponent({
       z-index: 1;
     }
     span {
-      padding: 20px 0 12px;
+      padding: 6px ​0 12px;
       font-size: 16px;
       width: 100%;
       text-align: center;

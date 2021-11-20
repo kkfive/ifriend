@@ -11,17 +11,11 @@
 </template>
 
 <script lang="ts">
-import type { friendItem } from "../../types/friend";
-import {
-  defineComponent,
-  onMounted,
-  watch,
-  PropType,
-  onBeforeMount,
-} from "vue";
+import type { friendItem } from '../../types/friend'
+import { defineComponent, onMounted, watch, PropType, onBeforeMount } from 'vue'
 
 export default defineComponent({
-  name: "friend-template-common",
+  name: 'friend-template-common',
   props: {
     friend: {
       type: Object as PropType<friendItem>,
@@ -31,15 +25,15 @@ export default defineComponent({
   },
   setup: function (props, context) {
     onBeforeMount(() => {
-      console.log(props.friend);
-    });
+      // console.log(props.friend)
+    })
     const jump = () => {
-      console.log(props.friend.body.link);
-      window.open(props.friend.body.link);
-    };
-    return { jump };
+      // console.log(props.friend.body.link)
+      window.open(props.friend.body.link)
+    }
+    return { jump }
   },
-});
+})
 </script>
 
 <style lang='scss' scoped>
@@ -67,7 +61,7 @@ export default defineComponent({
     bottom: 0;
     left: 0;
     z-index: -1;
-    content: "";
+    content: '';
   }
   &:hover::before {
     transform: scale(1);
@@ -89,11 +83,12 @@ export default defineComponent({
     justify-content: space-between;
     height: 60px;
     overflow: hidden;
+    flex: 1;
     .information-title {
       color: rgb(76, 73, 72);
       font-size: 18px;
       font-weight: bold;
-      overflow: hidden;
+      // overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }

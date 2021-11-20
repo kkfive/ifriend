@@ -11,5 +11,8 @@ export default defineConfig({
     cssCodeSplit: false,
     target: 'modules'
   },
-  plugins: [vue()]
+  plugins: [vue()],
+  server: {
+    port: 5678
+  }
 })

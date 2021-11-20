@@ -10,6 +10,8 @@
         :key="friend.number"
         :friend="friend"
       />
+    </div>
+    <div class="friend-container" style="margin-top: 20px">
       <common-friend-item
         v-for="friend in value.common"
         :key="friend.number"
@@ -20,13 +22,13 @@
 </template>
 
 <script lang="ts">
-import type { friendItem } from "../../types/friend";
-import { ref, defineComponent, watch, reactive } from "vue";
-import commonFriendItem from "../components/common.vue";
-import cardFriendItem from "../components/card.vue";
+import type { friendItem } from '../../types/friend'
+import { ref, defineComponent, watch, reactive } from 'vue'
+import commonFriendItem from '../components/common.vue'
+import cardFriendItem from '../components/card.vue'
 
 export default defineComponent({
-  name: "friend-template",
+  name: 'friend-template',
   props: {
     label: {
       type: Object,
@@ -35,7 +37,7 @@ export default defineComponent({
   },
   components: { commonFriendItem, cardFriendItem },
   setup: (props) => {},
-});
+})
 </script>
 
 <style lang='scss' scoped>
