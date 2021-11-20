@@ -48,4 +48,4 @@ jobs:
       - name: 7. 触发webhook
         run: |
           curl https://purge.jsdelivr.net/npm/butterfly-friend/
-          curl https://purge.jsdelivr.net/npm/butterfly-friend/dist/frinend.min.js
+          curl https://purge.jsdelivr.net/npm/butterfly-friend/dist/frinend.umd.js
