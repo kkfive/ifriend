@@ -4834,14 +4834,14 @@ const getFriendList = (url) => {
     xhr.send(null);
   });
 };
-const avatar = "_avatar_1cht1_32";
-const information = "_information_1cht1_56";
+const avatar = "_avatar_1xw6m_32";
+const information = "_information_1xw6m_56";
 var styles$1 = {
-  "common-friend": "_common-friend_1cht1_1",
+  "common-friend": "_common-friend_1xw6m_1",
   avatar,
   information,
-  "information-title": "_information-title_1cht1_65",
-  "information-desc": "_information-desc_1cht1_72"
+  "information-title": "_information-title_1xw6m_66",
+  "information-desc": "_information-desc_1xw6m_73"
 };
 var commonFriendItem = defineComponent({
   props: {
