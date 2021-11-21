@@ -3996,11 +3996,11 @@ const nodeOps = {
       t.innerHTML = isSVG ? `<svg>${content}</svg>` : content;
       template = t.content;
       if (isSVG) {
-        const wrapper = template.firstChild;
-        while (wrapper.firstChild) {
-          template.appendChild(wrapper.firstChild);
+        const wrapper2 = template.firstChild;
+        while (wrapper2.firstChild) {
+          template.appendChild(wrapper2.firstChild);
         }
-        template.removeChild(wrapper);
+        template.removeChild(wrapper2);
       }
       staticTemplateCache.set(content, template);
     }
@@ -4834,96 +4834,92 @@ const getFriendList = (url) => {
     xhr.send(null);
   });
 };
-var common_vue_vue_type_style_index_0_scoped_true_lang = "";
+const avatar = "_avatar_1cht1_32";
+const information = "_information_1cht1_56";
+var styles$1 = {
+  "common-friend": "_common-friend_1cht1_1",
+  avatar,
+  information,
+  "information-title": "_information-title_1cht1_65",
+  "information-desc": "_information-desc_1cht1_72"
+};
+var commonFriendItem = defineComponent({
+  props: {
+    friend: {
+      type: Object,
+      required: false
+    }
+  },
+  setup(props) {
+    const {
+      friend
+    } = props;
+    if (!friend)
+      return;
+    const jump = () => {
+      window.open(friend.body.link);
+    };
+    return () => {
+      return createVNode("div", {
+        "class": styles$1["common-friend"],
+        "onClick": jump,
+        "title": friend.body.name
+      }, [createVNode("div", {
+        "class": styles$1.avatar
+      }, [withDirectives(createVNode("img", null, null), [[resolveDirective("lazy"), friend.body.avatar]])]), createVNode("div", {
+        "class": styles$1["information"]
+      }, [createVNode("div", {
+        "class": styles$1["information-title"]
+      }, [friend.body.name]), createVNode("div", {
+        "class": styles$1["information-desc"]
+      }, [friend.body.descr])])]);
+    };
+  }
+});
+const wrapper = "_wrapper_f4c04_24";
+const info = "_info_f4c04_35";
+var styles = {
+  "card-friend": "_card-friend_f4c04_1",
+  wrapper,
+  info
+};
+var cardFriendItem = defineComponent({
+  props: {
+    friend: {
+      type: Object,
+      required: false
+    }
+  },
+  setup(props) {
+    const {
+      friend
+    } = props;
+    if (!friend)
+      return;
+    const jump = () => {
+      window.open(friend.body.link);
+    };
+    return () => {
+      return createVNode("div", {
+        "class": styles["card-friend"],
+        "onClick": jump
+      }, [createVNode("div", {
+        "class": `${styles.wrapper}`
+      }, [createVNode("img", {
+        "src": friend.body.screenshot
+      }, null)]), createVNode("div", {
+        "class": styles.info
+      }, [withDirectives(createVNode("img", null, null), [[resolveDirective("lazy"), friend.body.avatar]]), createVNode("span", null, [friend.body.name])])]);
+    };
+  }
+});
+var friendTemplate_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props) => {
   for (const [key, val] of props) {
     sfc[key] = val;
   }
   return sfc;
 };
-const _sfc_main$3 = defineComponent({
-  name: "friend-template-common",
-  props: {
-    friend: {
-      type: Object,
-      require: true,
-      default: []
-    }
-  },
-  setup: function(props, context) {
-    onBeforeMount(() => {
-    });
-    const jump = () => {
-      window.open(props.friend.body.link);
-    };
-    return { jump };
-  }
-});
-const _hoisted_1$2 = ["title"];
-const _hoisted_2$2 = { class: "avatar" };
-const _hoisted_3$2 = { class: "information" };
-const _hoisted_4$1 = { class: "information-title" };
-const _hoisted_5$1 = { class: "information-desc" };
-function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
-  const _directive_lazy = resolveDirective("lazy");
-  return openBlock(), createElementBlock("div", {
-    class: "common-friend",
-    onClick: _cache[0] || (_cache[0] = (...args) => _ctx.jump && _ctx.jump(...args)),
-    title: _ctx.friend.body.name
-  }, [
-    createBaseVNode("div", _hoisted_2$2, [
-      withDirectives(createBaseVNode("img", null, null, 512), [
-        [_directive_lazy, _ctx.friend.body.avatar]
-      ])
-    ]),
-    createBaseVNode("div", _hoisted_3$2, [
-      createBaseVNode("div", _hoisted_4$1, toDisplayString(_ctx.friend.body.name), 1),
-      createBaseVNode("div", _hoisted_5$1, toDisplayString(_ctx.friend.body.descr), 1)
-    ])
-  ], 8, _hoisted_1$2);
-}
-var commonFriendItem = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$3], ["__scopeId", "data-v-6e1b1f58"]]);
-var card_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _sfc_main$2 = defineComponent({
-  name: "friend-template-card",
-  props: {
-    friend: {
-      type: Object,
-      require: true,
-      default: []
-    }
-  },
-  setup: function(props, context) {
-    const jump = () => {
-      window.open(props.friend.body.link);
-    };
-    return { jump };
-  }
-});
-const _hoisted_1$1 = { class: "wrapper cover" };
-const _hoisted_2$1 = ["src"];
-const _hoisted_3$1 = { class: "info" };
-function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
-  const _directive_lazy = resolveDirective("lazy");
-  return openBlock(), createElementBlock("div", {
-    class: "card-friend",
-    onClick: _cache[0] || (_cache[0] = (...args) => _ctx.jump && _ctx.jump(...args))
-  }, [
-    createBaseVNode("div", _hoisted_1$1, [
-      createBaseVNode("img", {
-        src: _ctx.friend.body.screenshot
-      }, null, 8, _hoisted_2$1)
-    ]),
-    createBaseVNode("div", _hoisted_3$1, [
-      withDirectives(createBaseVNode("img", null, null, 512), [
-        [_directive_lazy, _ctx.friend.body.avatar]
-      ]),
-      createBaseVNode("span", null, toDisplayString(_ctx.friend.body.name), 1)
-    ])
-  ]);
-}
-var cardFriendItem = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2], ["__scopeId", "data-v-251e0820"]]);
-var friendTemplate_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main$1 = defineComponent({
   name: "friend-template",
   props: {
@@ -4976,7 +4972,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     ], 8, _hoisted_1);
   }), 128);
 }
-var friendTemplate = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-71095a68"]]);
+var friendTemplate = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-928a127e"]]);
 const _sfc_main = {
   components: { friendTemplate },
   setup() {

@@ -22,10 +22,9 @@
 </template>
 
 <script lang="ts">
-import type { friendItem } from '../../types/friend'
-import { ref, defineComponent, watch, reactive } from 'vue'
-import commonFriendItem from '../components/common.vue'
-import cardFriendItem from '../components/card.vue'
+import { defineComponent } from 'vue'
+import commonFriendItem from '@/components/friend-style/common'
+import cardFriendItem from '@/components/friend-style/card'
 
 export default defineComponent({
   name: 'friend-template',
@@ -52,5 +51,9 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  &::after {
+    content: '';
+    width: 30%;
+  }
 }
 </style>
