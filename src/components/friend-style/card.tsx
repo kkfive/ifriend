@@ -1,11 +1,11 @@
 import { defineComponent, PropType, ref, computed } from 'vue'
-import { friendItem } from '@/types/friend'
+import { FriendItem } from '@/types/friend'
 import styles from './style/card.module.scss'
 export default defineComponent({
   props: {
     friend: {
       // 代码
-      type: Object as PropType<friendItem>,
+      type: Object as PropType<FriendItem>,
       required: false
     }
   },
@@ -14,17 +14,17 @@ export default defineComponent({
     if (!friend) return
 
     const jump = () => {
-      window.open(friend.body.link)
+      window.open(friend.link)
     }
     return () => {
       return (
         <div class={styles['card-friend']} onClick={jump}>
           <div class={`${styles.wrapper}`}>
-            <img src={friend.body.screenshot} />
+            <img src={friend.theme.screenshot} />
           </div>
           <div class={styles.info}>
-            <img v-lazy={friend.body.avatar} />
-            <span>{friend.body.name}</span>
+            <img v-lazy={friend.avatar} />
+            <span>{friend.name}</span>
           </div>
         </div>
       )

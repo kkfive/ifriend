@@ -1,27 +1,27 @@
 <template>
-  <div class="common-friend" @click="jump" :title="friend.body.name">
+  <div class="common-friend" @click="jump" :title="friend.name">
     <div class="avatar">
-      <img v-lazy="friend.body.avatar" />
+      <img v-lazy="friend.avatar" />
     </div>
     <div class="information">
-      <div class="information-title">{{ friend.body.name }}</div>
-      <div class="information-desc">{{ friend.body.descr }}</div>
+      <div class="information-title">{{ friend.name }}</div>
+      <div class="information-desc">{{ friend.description }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import type { friendItem } from '../../types/friend'
+import type { FriendItem } from '../../types/friend'
 import { defineComponent, onMounted, watch, PropType, onBeforeMount } from 'vue'
 
 export default defineComponent({
   name: 'friend-template-common',
   props: {
     friend: {
-      type: Object as PropType<friendItem>,
+      type: Object as PropType<FriendItem>,
       require: true,
-      default: [],
-    },
+      default: []
+    }
   },
   setup: function (props, context) {
     onBeforeMount(() => {
@@ -29,14 +29,14 @@ export default defineComponent({
     })
     const jump = () => {
       // console.log(props.friend.body.link)
-      window.open(props.friend.body.link)
+      window.open(props.friend.link)
     }
     return { jump }
-  },
+  }
 })
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .common-friend {
   width: calc(100% / 3 - 15px);
   height: 90px;

@@ -1,6 +1,8 @@
-import { friend } from '../types/friend'
+import { FriendResponse } from '../types/friend'
 
-export const getFriendList: (url: string) => Promise<friend> = (url) => {
+export const getFriendList: (url: string) => Promise<FriendResponse> = (
+  url
+) => {
   return new Promise((resolve, reject) => {
     // 1. 创建核心对象
     var xhr: XMLHttpRequest = new XMLHttpRequest()
@@ -8,7 +10,7 @@ export const getFriendList: (url: string) => Promise<friend> = (url) => {
     xhr.onreadystatechange = function () {
       if (xhr.status === 200 && xhr.readyState === 4) {
         // 当请求成功时执行的代码
-        var friend: friend = JSON.parse(xhr.responseText)
+        var friend: FriendResponse = JSON.parse(xhr.responseText)
         resolve(friend)
       }
     }

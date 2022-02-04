@@ -15,7 +15,7 @@
   transform: translateZ(0);
   &::before {
     transform: scale(0);
-    background: #49b1f5;
+    background: var(--primary-hover-color, #49b1f5);
     transition: transform 0.3s ease-out;
     position: absolute;
     top: 0;
@@ -30,7 +30,7 @@
       transform: scale(1);
     }
     .avatar {
-      transform: rotate(360deg);
+      transform: rotate(var(--pimary-avatar-hover, 360deg));
     }
   }
   @include maxWidth1024 {

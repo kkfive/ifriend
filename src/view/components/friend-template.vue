@@ -1,45 +1,84 @@
 <template>
-  <div v-for="(value, key) in label" :id="key" :key="key" class="container">
+  <div
+    v-for="(value, key) in props.tagObjList"
+    :id="key.toString()"
+    :key="key"
+    class="container"
+  >
     <div>
       <h3 class="title">{{ key }}</h3>
-      <p class="desc">{{ value.desc }}</p>
+      <p class="desc">{{ value.description }}</p>
     </div>
     <div class="friend-container">
-      <card-friend-item
-        v-for="friend in value.card"
-        :key="friend.number"
-        :friend="friend"
-      />
+      <template v-for="friend in value.items" :key="friend._id">
+        <card-friend-item
+          v-if="friend.theme.cardStyle === 'card'"
+          :friend="friend"
+        />
+      </template>
     </div>
     <div class="friend-container" style="margin-top: 20px">
-      <common-friend-item
-        v-for="friend in value.common"
-        :key="friend.number"
-        :friend="friend"
-      />
+      <template v-for="friend in value.items" :key="friend._id">
+        <common-friend-item
+          v-if="friend.theme.cardStyle === 'item' || !friend.theme.cardStyle"
+          :friend="friend"
+        />
+      </template>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { TagListType } from '../App.vue'
+import { computed, defineComponent, PropType } from 'vue'
 import commonFriendItem from '@/components/friend-style/common'
 import cardFriendItem from '@/components/friend-style/card'
+import '../../styles/animation.scss'
+const props = defineProps({
+  tagObjList: {
+    type: Object as PropType<TagListType>,
+    require: true
+  }
+})
 
-export default defineComponent({
-  name: 'friend-template',
-  props: {
-    label: {
-      type: Object,
-      require: true,
-    },
-  },
-  components: { commonFriendItem, cardFriendItem },
-  setup: (props) => {},
+const addKeyAndValue = (obj, key, val) => {
+  if (obj[key]) {
+    obj[key].items.push(val)
+  } else {
+    obj[key] = {
+      description: (props.tagObjList as TagListType)[key].description,
+      items: [val]
+    }
+  }
+}
+
+const cardTypeList = computed(() => {
+  if (!props.tagObjList) return
+  let cardItem: TagListType = {}
+  let commonItem: TagListType = {}
+  Object.keys(props.tagObjList).forEach((key) => {
+    if (!props.tagObjList) return
+    props.tagObjList[key].items.forEach((item) => {
+      if (item.theme.cardStyle === 'card') {
+        addKeyAndValue(cardItem, key, item)
+        // if (cardItem[key]) {
+        //   cardItem[key].items.push(item)
+        // } else {
+        //   cardItem[key] = {
+        //     description: (props.tagObjList as TagListType)[key].description,
+        //     items: [item]
+        //   }
+        // }
+      } else if (item.theme.cardStyle === 'item') {
+        addKeyAndValue(commonItem, key, item)
+      }
+    })
+  })
+  return { cardItem, commonItem }
 })
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .container {
   .title {
   }
