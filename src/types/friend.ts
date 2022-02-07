@@ -6,11 +6,11 @@ export interface BaseResponse<T> {
 }
 
 export interface TagType {
-  _id: string
+  _id?: string
+  __v?: number
   bgColor: string
   name: string
   description: string
-  __v: number
   user: string
   createAt: string
 }
@@ -68,8 +68,8 @@ export interface FriendItem {
   /**
    * 当前友链存储的唯一标识
    */
-  _id: string
-  __v: 0
+  _id?: string
+  __v?: 0
   /**
    * 个性化主题配置
    */
@@ -78,12 +78,12 @@ export interface FriendItem {
   /**
    * 友链标签配置
    */
-  tag: TagType
+  tag: TagType | string
 
   /**
    * 友链状态属性 0开启 1待审核 2已关闭
    */
-  status: string
+  status?: string
 
   /**
    * 友链描述信息
@@ -113,6 +113,6 @@ export interface FriendItem {
   /**
    * 友链创建时间
    */
-  createTime: Date
+  createTime?: Date
 }
 export interface FriendResponse extends BaseResponse<FriendItem[]> {}

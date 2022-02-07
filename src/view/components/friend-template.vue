@@ -6,7 +6,7 @@
     class="container"
   >
     <div>
-      <h3 class="title">{{ key }}</h3>
+      <h2 class="title">{{ key }}</h2>
       <p class="desc">{{ value.description }}</p>
     </div>
     <div class="friend-container">
@@ -29,8 +29,8 @@
 </template>
 
 <script lang="ts" setup>
-import { TagListType } from '../App.vue'
-import { computed, defineComponent, PropType } from 'vue'
+import { TagListType } from '../index/index.vue'
+import { computed, PropType } from 'vue'
 import commonFriendItem from '@/components/friend-style/common'
 import cardFriendItem from '@/components/friend-style/card'
 import '../../styles/animation.scss'

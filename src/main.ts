@@ -20,7 +20,7 @@ const render = (options: initOptions) => {
   return app.mount(options.el || '#xk-friend')
 }
 
-async function init(options: initOptions = { url: '' }) {
+async function init(options: initOptions = { api: '', user: '' }) {
   return render(options)
 }
 export default init
@@ -30,9 +30,12 @@ export { init }
 if (import.meta.env.DEV) {
   init({
     el: '#app',
-    url: 'https://kkapi-dev.vercel.app/api/friend/all?userId=61f7d1666ecb8aa6c58fcde7',
+    api: 'http://127.0.0.1:3000',
+    // api: 'https://kkapi-dev.vercel.app',
+    // url: 'https://kkapi-dev.vercel.app/api/friend/all?userId=61f7d1666ecb8aa6c58fcde7',
     loading_img: 'https://7.dusays.com/2021/03/04/d2d5e983e2961.gif',
     fail_img:
-      'https://file.acs.pw/picGo/2021/1/22/90331f043583fe472e59602f835cc28c.gif'
+      'https://file.acs.pw/picGo/2021/1/22/90331f043583fe472e59602f835cc28c.gif',
+    user: '61fe93508fd621d39a155725'
   })
 }

@@ -4,7 +4,7 @@
 /**
   呼吸灯效果
 **/
-@keyframes link_custom {
+@keyframes link-custom {
   from {
     box-shadow: 0 0 5px var(--primary-color, grey),
       inset 0 0 5px var(--primary-color, grey),
@@ -32,7 +32,7 @@
 /**
   霓虹灯效果边框动画
 **/
-@keyframes link_custom1 {
+@keyframes link-custom1 {
   0% {
     box-shadow: 0 0 4px #ca00ff;
   }
@@ -53,7 +53,7 @@
 普通样式友链动画 --- End
 **/
 
-@keyframes auto_rotate_left {
+@keyframes auto-rotate-left {
   from {
     transform: rotate(0);
   }
@@ -61,7 +61,7 @@
     transform: rotate(-360deg);
   }
 }
-@keyframes auto_rotate_right {
+@keyframes auto-rotate-right {
   from {
     transform: rotate(0);
   }

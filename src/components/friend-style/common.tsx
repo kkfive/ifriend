@@ -27,14 +27,13 @@ export default defineComponent({
         if (!item) return
         if (item) {
           const temp = item.split(':')
-          res['--' + temp[0]] = temp[1]
+          if (temp.length !== 2) return
+          res['--' + temp[0]?.trim()] = temp[1]?.trim()
         }
       })
 
       return res
     })
-
-    console.log(variable.value)
 
     return () => {
       return (
@@ -48,7 +47,7 @@ export default defineComponent({
             animation: friend.theme.boderAnimation || ''
           }}
         >
-          <div class={friend.avatar ? styles.avatar : ''}>
+          <div class={styles.avatar}>
             <img
               v-lazy={friend.avatar}
               style={{
