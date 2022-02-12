@@ -42,6 +42,7 @@ jobs:
       - name: 6. 发布包
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          cp package.json dist
           cd dist
           npm publish
         env:
