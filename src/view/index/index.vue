@@ -46,20 +46,14 @@ onMounted(async () => {
   loading.value = 'loading'
   let result
   if (typeof options.api === 'string') {
-    try {
-      result = await request(options.api)
-    } catch (e) {}
+    result = await request(options.api)
   } else {
-    try {
-      result = await Promise.race(requestList())
-    } catch (e) {}
+    result = await Promise.race(requestList())
   }
   loading.value = 'success'
-  loading.value = 'fail'
+  // loading.value = 'fail'
 
   friendList.value = result
-
-  // 遍历所有友链
 })
 </script>
 

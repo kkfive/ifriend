@@ -5182,18 +5182,11 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
       loading.value = "loading";
       let result;
       if (typeof options.api === "string") {
-        try {
-          result = await request(options.api);
-        } catch (e) {
-        }
+        result = await request(options.api);
       } else {
-        try {
-          result = await Promise.race(requestList());
-        } catch (e) {
-        }
+        result = await Promise.race(requestList());
       }
       loading.value = "success";
-      loading.value = "fail";
       friendList.value = result;
     });
     return (_ctx, _cache) => {
