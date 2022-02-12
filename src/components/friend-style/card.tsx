@@ -20,7 +20,12 @@ export default defineComponent({
       return (
         <div class={styles['card-friend']} onClick={jump}>
           <div class={`${styles.wrapper}`}>
-            <img src={friend.theme.screenshot} />
+            <img
+              src={
+                friend.theme.siteImage ||
+                `https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/${friend.link}`
+              }
+            />
           </div>
           <div class={styles.info}>
             <img v-lazy={friend.avatar} />

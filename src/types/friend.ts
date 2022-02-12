@@ -1,21 +1,14 @@
 export interface BaseResponse<T> {
-  data: T
-  message: string
-  type: string
-  code: number
-}
-
-export interface TagType {
-  _id?: string
-  __v?: number
-  bgColor: string
-  name: string
-  description: string
-  user: string
-  createAt: string
+  [propName: string]: {
+    class_name: string
+    class_desc: string
+    link_list: FriendItem[]
+  }
 }
 
 export interface friendItemBody {
+  style: 'default' | 'card'
+  siteImage: string
   /**
    * 边框类型
    * @example 1px solid #000
@@ -66,24 +59,9 @@ export interface friendItemBody {
 }
 export interface FriendItem {
   /**
-   * 当前友链存储的唯一标识
-   */
-  _id?: string
-  __v?: 0
-  /**
    * 个性化主题配置
    */
   theme: friendItemBody
-
-  /**
-   * 友链标签配置
-   */
-  tag: TagType | string
-
-  /**
-   * 友链状态属性 0开启 1待审核 2已关闭
-   */
-  status?: string
 
   /**
    * 友链描述信息
@@ -101,18 +79,5 @@ export interface FriendItem {
    * 友链名称
    */
   name: string
-  /**
-   * 友链去往用户的id
-   */
-  to: string
-  /**
-   * 友链来自用户的id
-   */
-  from?: string
-
-  /**
-   * 友链创建时间
-   */
-  createTime?: Date
 }
 export interface FriendResponse extends BaseResponse<FriendItem[]> {}

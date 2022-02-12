@@ -1,80 +1,64 @@
 <template>
-  <div
-    v-for="(value, key) in props.tagObjList"
-    :id="key.toString()"
-    :key="key"
-    class="container"
-  >
+  <div v-for="(value, key) in forFriendList" :key="key" class="container">
     <div>
-      <h2 class="title">{{ key }}</h2>
-      <p class="desc">{{ value.description }}</p>
+      <h2 class="title">{{ value.class_name }}</h2>
+      <p class="desc" v-html="value.class_desc"></p>
     </div>
     <div class="friend-container">
-      <template v-for="friend in value.items" :key="friend._id">
-        <card-friend-item
-          v-if="friend.theme.cardStyle === 'card'"
-          :friend="friend"
-        />
+      <template v-for="friend in value.card_list" :key="friend.link">
+        <card-friend-item :friend="friend" />
       </template>
     </div>
     <div class="friend-container" style="margin-top: 20px">
-      <template v-for="friend in value.items" :key="friend._id">
-        <common-friend-item
-          v-if="friend.theme.cardStyle === 'item' || !friend.theme.cardStyle"
-          :friend="friend"
-        />
+      <template v-for="friend in value.default_list" :key="friend._id">
+        <common-friend-item :friend="friend" />
       </template>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { TagListType } from '../index/index.vue'
-import { computed, PropType } from 'vue'
+import { FriendListType } from '../index/index.vue'
+import { computed, PropType, ref } from 'vue'
 import commonFriendItem from '@/components/friend-style/common'
 import cardFriendItem from '@/components/friend-style/card'
 import '../../styles/animation.scss'
+import { FriendItem } from '@/types/friend'
 const props = defineProps({
-  tagObjList: {
-    type: Object as PropType<TagListType>,
+  friendList: {
+    type: Object as PropType<FriendListType>,
     require: true
   }
 })
-
-const addKeyAndValue = (obj, key, val) => {
-  if (obj[key]) {
-    obj[key].items.push(val)
-  } else {
-    obj[key] = {
-      description: (props.tagObjList as TagListType)[key].description,
-      items: [val]
+const forFriendList = computed(() => {
+  const friendItem: {
+    [propNmae: string]: {
+      class_name: string
+      class_desc: string
+      card_list: FriendItem[]
+      default_list: FriendItem[]
     }
-  }
-}
-
-const cardTypeList = computed(() => {
-  if (!props.tagObjList) return
-  let cardItem: TagListType = {}
-  let commonItem: TagListType = {}
-  Object.keys(props.tagObjList).forEach((key) => {
-    if (!props.tagObjList) return
-    props.tagObjList[key].items.forEach((item) => {
-      if (item.theme.cardStyle === 'card') {
-        addKeyAndValue(cardItem, key, item)
-        // if (cardItem[key]) {
-        //   cardItem[key].items.push(item)
-        // } else {
-        //   cardItem[key] = {
-        //     description: (props.tagObjList as TagListType)[key].description,
-        //     items: [item]
-        //   }
-        // }
-      } else if (item.theme.cardStyle === 'item') {
-        addKeyAndValue(commonItem, key, item)
+  } = {}
+  const friendList: FriendListType = props.friendList as FriendListType
+  const keys = Object.keys(props.friendList as Object)
+  keys.forEach((key) => {
+    const card_list: FriendItem[] = [],
+      default_list: FriendItem[] = []
+    friendList[key]?.link_list.forEach((item) => {
+      if (item.theme.style === 'card') {
+        card_list.push(item)
+      } else {
+        default_list.push(item)
       }
     })
+    friendItem[key] = {
+      class_name: friendList[key].class_name,
+      class_desc: friendList[key].class_desc,
+      card_list: card_list.sort(() => Math.random() - 0.5),
+      default_list: default_list.sort(() => Math.random() - 0.5)
+    }
   })
-  return { cardItem, commonItem }
+  return friendItem
 })
 </script>
 
@@ -83,7 +67,7 @@ const cardTypeList = computed(() => {
   .title {
   }
   .desc {
-    color: red;
+    // color: red;
   }
 }
 .friend-container {

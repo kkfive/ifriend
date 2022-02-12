@@ -28,17 +28,17 @@ jobs:
         id: cache-dependencies
         with:
           path: node_modules
-          key: ${{runner.OS}}-${{hashFiles('**/package-lock.json')}}
+          key: ${{runner.OS}}-${{hashFiles('**/yarn.lock')}}
 
       - name: 4. 安装插件
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: |
           export TZ='Asia/Shanghai'
-          npm install
+          yarn install
       - name: 5. 生成文件
         run: |
           export TZ='Asia/Shanghai'
-          npm run build
+          yarn run build
       - name: 6. 发布包
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
